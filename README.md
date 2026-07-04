@@ -43,10 +43,14 @@ Cada capítulo é marcado com uma tag `cap-<N>` e um commit correspondente.
 
 ## Próximos Passos
 
-Execute `get_version.py` para confirmar conectividade com os quatro roteadores:
+A partir do `cap-2` o inventário tem **sete** hosts — e o `f5` é API-only (sem
+SSH). Rodar `get_version.py` sem filtro vai falhar no `f5`; isso é proposital e
+motiva os filtros do Capítulo 2. Prefira o script filtrado:
 
 ```bash
-python get_version.py
+python filter_lab.py
 ```
 
-Você verá a saída de cada roteador formatada por host, rodando em paralelo.
+Ele aplica `show clock` apenas na fatia `edge & poa` (`r1` e `eos1`), rodando em
+paralelo. Para explorar o inventário sem tocar em nenhum dispositivo, rode
+`python external_inventory.py`.
