@@ -1,0 +1,16 @@
+r1:
+  hostname: 172.20.20.11
+  groups:
+    - ios_routers
+r2:
+  hostname: 172.20.20.12
+  groups:
+    - ios_routers
+r3:
+  hostname: 172.20.20.13
+  groups:
+    - ios_routers
+r4:
+  hostname: 172.20.20.14
+  groups:
+    - ios_routers

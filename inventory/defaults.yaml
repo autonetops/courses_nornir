@@ -1,0 +1,4 @@
+# Valores globais de fallback.
+# Credenciais NAO ficam aqui — sao injetadas de env vars no runbook.
+data:
+  site: nornir-lab
