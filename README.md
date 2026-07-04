@@ -28,18 +28,27 @@ Cada capítulo é marcado com uma tag `cap-<N>` e um commit correspondente.
 |----------|-----|-----------|--------|
 | 1 | `cap-1` | Fundamentos: config.yaml, inventário, show version | ✓ Pronto |
 | 2 | `cap-2` | Gerenciando o Inventário: hierarquia, grupos compostos, filtros, transform | ✓ Pronto |
+| 3 | `cap-3` | Execução de Tarefas e Plugins: tasks custom, netmiko/napalm/scrapli, resultados, dry-run, Jinja2 | ✓ Pronto |
 
 ## Diretório
 
 - `config.yaml` — configuração do runner (threaded) e inventory plugin (SimpleInventory)
-- `inventory/hosts.yaml` — r1–r4, eos1–eos2 e f5 (172.20.20.11–14/21–22/31) com grupos compostos
-- `inventory/groups.yaml` — grupos por dimensão: plataforma (`ios`/`eos`/`f5`), site (`site_poa`/`site_gru`) e papel (`edge`/`core`/`lb`)
+- `inventory/hosts.yaml` — r1–r4, eos1–eos2 e f5 (172.20.20.11–14/21–22/31) com grupos compostos + `loopback_ip` por host (Cap. 3)
+- `inventory/groups.yaml` — grupos por dimensão; `connection_options` de netmiko/napalm/scrapli nos grupos `ios`/`eos` (Cap. 3)
 - `inventory/defaults.yaml` — valores globais de fallback (sem credenciais)
 - `inventory/hosts.json` — export externo (CMDB simulado) com model/serial/rack por host
 - `get_version.py` — exemplo: puxa `show version` de todos os roteadores em paralelo
 - `filter_lab.py` — filtra o inventário (edge de POA) e roda `show clock` só na fatia
 - `transform.py` — transform function que enriquece cada host a partir do `hosts.json`
 - `external_inventory.py` — carrega o inventário aplicando a transform function do CMDB
+- `tasks/facts.py` — task custom sobre netmiko (uptime); `tasks/f5_api.py` — task HTTP iControl REST (F5 API-only)
+- `custom_task_lab.py` — roda a task custom `uptime` (Cap. 3, Aula 1)
+- `plugins_lab.py` — netmiko × napalm × scrapli lado a lado (Cap. 3, Aula 2)
+- `f5_api_lab.py` — versão do BIG-IP via iControl REST (Cap. 3, Aula 2)
+- `processors.py` + `resultado_lab.py` — resultados, `failed_hosts` e processor de progresso (Cap. 3, Aula 3)
+- `config_lab.py` — `napalm_configure` com dry-run, diff e idempotência (Cap. 3, Aula 4)
+- `templates/ios/base.j2`, `templates/eos/base.j2` — templates Jinja2 por plataforma (Cap. 3, Aula 5)
+- `render_lab.py` — renderiza os templates (device-free); `deploy_from_template.py` — render → deploy (dry-run)
 
 ## Próximos Passos
 
@@ -54,3 +63,11 @@ python filter_lab.py
 Ele aplica `show clock` apenas na fatia `edge & poa` (`r1` e `eos1`), rodando em
 paralelo. Para explorar o inventário sem tocar em nenhum dispositivo, rode
 `python external_inventory.py`.
+
+No `cap-3` os scripts colocam o inventário para **trabalhar**. Dois deles rodam
+**sem lab** (Python puro, ótimos para estudar): `python resultado_lab.py`
+(resultados, `failed_hosts` e o processor de progresso) e `python render_lab.py`
+(renderiza os templates Jinja2 por plataforma). Os demais (`custom_task_lab.py`,
+`plugins_lab.py`, `f5_api_lab.py`, `config_lab.py`, `deploy_from_template.py`)
+tocam os dispositivos — exporte as credenciais antes. O deploy é sempre em
+`dry_run=True`: revise o diff antes de trocar para `False`.

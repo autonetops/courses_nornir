@@ -1,24 +1,32 @@
 # --- Dimensao PLATAFORMA (platform + connection_options) ---
 ios:
-  platform: cisco_xe
+  platform: cisco_xe          # nome NETMIKO (base)
   connection_options:
     netmiko:
-      platform: cisco_xe
+      platform: cisco_xe      # device_type do netmiko
       extras:
         conn_timeout: 30
+    napalm:
+      platform: ios           # nome que o NAPALM espera para IOS-XE
+    scrapli:
+      platform: cisco_iosxe   # nome que o SCRAPLI espera para IOS-XE
 
 eos:
-  platform: arista_eos
+  platform: arista_eos        # nome NETMIKO (base)
   connection_options:
     netmiko:
       platform: arista_eos
       extras:
         conn_timeout: 30
+    napalm:
+      platform: eos           # nome que o NAPALM espera para Arista
+    scrapli:
+      platform: arista_eos    # o scrapli tambem chama de arista_eos
 
 f5:
   platform: f5_bigip
   data:
-    api_only: true          # sem CLI (API-only)
+    api_only: true            # sem CLI (API-only)
 
 # --- Dimensao SITE ---
 site_poa:
