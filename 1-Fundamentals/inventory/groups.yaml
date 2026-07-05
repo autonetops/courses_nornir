@@ -1,0 +1,46 @@
+
+ios:
+  platform: cisco_ios          
+  connection_options:
+    netmiko:
+      platform: cisco_ios      
+      extras:
+        conn_timeout: 30
+    napalm:
+      platform: ios           
+    scrapli:
+      platform: cisco_iosxe   
+
+eos:
+  platform: arista_eos        
+  connection_options:
+    netmiko:
+      platform: arista_eos
+      extras:
+        conn_timeout: 30
+    napalm:
+      platform: eos           
+    scrapli:
+      platform: arista_eos    
+
+f5:
+  platform: f5_bigip
+  data:
+    api_only: true            
+
+
+site_poa:
+  data:
+    site: poa
+    region: sul
+
+
+edge:
+  data:
+    role: edge
+core:
+  data:
+    role: core
+lb:
+  data:
+    role: lb

@@ -1,0 +1,3 @@
+# Fallback global. Credenciais NUNCA aqui — injetadas de env no runbook.
+data:
+  domain: autonetops.com
