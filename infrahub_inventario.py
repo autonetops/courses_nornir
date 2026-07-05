@@ -28,5 +28,10 @@ for nome, host in sorted(nr.inventory.hosts.items()):
 
 # um host cisco qualquer, para provar que o connection_options veio do grupo
 cisco = nr.filter(platform="cisco_xe")
+if not cisco.inventory.hosts:
+    raise SystemExit(
+        "nenhum host com platform cisco_xe — confira o atributo "
+        "nornir_platform no Infrahub"
+    )
 algum = next(iter(cisco.inventory.hosts.values()))
 print("napalm platform:", algum.get_connection_parameters("napalm").platform)

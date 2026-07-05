@@ -30,6 +30,8 @@ Cada capítulo é marcado com uma tag `cap-<N>` e um commit correspondente.
 | 2 | `cap-2` | Gerenciando o Inventário: hierarquia, grupos compostos, filtros, transform | ✓ Pronto |
 | 3 | `cap-3` | Execução de Tarefas e Plugins: tasks custom, netmiko/napalm/scrapli, resultados, dry-run, Jinja2 | ✓ Pronto |
 | 4 | `cap-4` | Técnicas Avançadas: workflow de config reutilizável, transform de credenciais, retry/idempotência, pytest, inventory plugin próprio | ✓ Pronto |
+| 5 | `cap-5` | A Arquitetura de Automação de Redes: camadas NAF e o mapa do stack (concepts-only) | ✓ Pronto |
+| 6 | `cap-6` | Infrahub como Source of Truth: InfrahubInventory, GraphQL, artifacts, drift | ✓ Pronto |
 
 ## Diretório
 
@@ -56,6 +58,17 @@ Cada capítulo é marcado com uma tag `cap-<N>` e um commit correspondente.
 - `pytest.ini` + `tests/` — suíte pytest com inventário fake (`tests/fixtures/`); roda sem nenhum device (Cap. 4, Aula 4)
 - `nornir_lab_inventory.py` — inventory plugin próprio (`LabJSONInventory`) que constrói o inventário do `hosts.json` (Cap. 4, Aula 5)
 - `config_plugin.yaml` + `plugin_inventory_lab.py` — inicialização usando o plugin próprio (device-free)
+- `docs/arquitetura.md` — as camadas NAF e o mapa do stack do curso (Cap. 5)
+- `sot_lab.py` — primeiro contato com o Infrahub via `infrahub-sdk` (leitura) (Cap. 6, Aula 1)
+- `config-infrahub.yaml` — config do Nornir com o `InfrahubInventory` (sem token: injetado de env) (Cap. 6, Aula 2)
+- `inventory/group.yaml` — grupos estáticos `platform__ios`/`platform__eos` com `connection_options` napalm/scrapli (Cap. 6, Aula 2)
+- `infrahub_inventario.py` — inventário do Nornir nascendo do Infrahub; guarda fail-fast se `nornir_platform` não estiver semeado (Cap. 6, Aula 2)
+- `queries/device_config.gql` — query GraphQL parametrizada dos dados de config por device (Cap. 6, Aula 3)
+- `templates/ios/interfaces_sot.j2` — template do padrão query → dict → template (Cap. 6, Aulas 3–4)
+- `render_sot.py` — executa a query e renderiza a config localmente (Cap. 6, Aula 3)
+- `.infrahub.yml` — declaração de queries/transforms/artifact definitions carregada pelo Infrahub no Cap. 7 (Cap. 6, Aula 4)
+- `artifacts_lab.py` — gera e puxa o artifact `startup-config` via `nornir-infrahub` (Cap. 6, Aula 4)
+- `drift.py` — detecção de drift: intended (artifact do SoT) × running (`napalm get_config`), com exit code para CI (Cap. 6, Aula 5)
 
 ## Próximos Passos
 
