@@ -14,8 +14,8 @@ cd nornir-lab
 As credenciais nunca são hardcoded. Antes de rodar qualquer script, exporte as variáveis de ambiente:
 
 ```bash
-export NORNIR_USER="student"
-export NORNIR_PASS="autonetops123"
+export NORNIR_USER="admin"
+export NORNIR_PASS="autonetops"
 ```
 
 O script falhará rapidamente (fail-fast) se essas variáveis não estiverem definidas.
