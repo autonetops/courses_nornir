@@ -1,0 +1,5 @@
+{% for iface in interfaces %}
+interface {{ iface.nome }}
+ description {{ iface.descricao }}
+!
+{% endfor %}

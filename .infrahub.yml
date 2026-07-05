@@ -1,0 +1,17 @@
+queries:
+  - name: device_config
+    file_path: "queries/device_config.gql"
+
+jinja2_transforms:
+  - name: startup_config
+    query: device_config
+    template_path: "templates/ios/interfaces_sot.j2"
+
+artifact_definitions:
+  - name: startup-config
+    artifact_name: startup-config
+    parameters:
+      device: "name__value"
+    content_type: "text/plain"
+    targets: "generators_devices"
+    transformation: startup_config

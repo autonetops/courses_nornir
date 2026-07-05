@@ -1,0 +1,12 @@
+platform__ios:
+  connection_options:
+    napalm:
+      platform: ios
+    scrapli:
+      platform: cisco_iosxe
+platform__eos:
+  connection_options:
+    napalm:
+      platform: eos
+    scrapli:
+      platform: arista_eos
