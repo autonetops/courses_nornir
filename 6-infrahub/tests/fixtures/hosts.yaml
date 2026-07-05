@@ -1,0 +1,24 @@
+# Inventario FAKE para testes: IPs da faixa de documentacao
+# (192.0.2.0/24, RFC 5737) — nenhum teste conecta em nada.
+r1:
+  hostname: 192.0.2.11
+  groups:
+    - ios
+    - site_poa
+    - edge
+  data:
+    loopback_ip: 10.255.0.1
+eos1:
+  hostname: 192.0.2.21
+  groups:
+    - eos
+    - site_poa
+    - edge
+  data:
+    loopback_ip: 10.255.0.21
+f5:
+  hostname: 192.0.2.31
+  groups:
+    - f5
+    - site_poa
+    - lb

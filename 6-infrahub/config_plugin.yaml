@@ -1,0 +1,15 @@
+runner:
+  plugin: threaded
+  options:
+    num_workers: 20
+
+inventory:
+  plugin: LabJSONInventory
+  options:
+    arquivo: "inventory/hosts.json"
+  transform_function: "prepara_host"
+
+logging:
+  enabled: true
+  level: INFO
+  log_file: "nornir.log"
