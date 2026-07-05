@@ -1,0 +1,27 @@
+runner:
+  plugin: threaded
+  options:
+    num_workers: 20
+
+inventory:
+  plugin: InfrahubInventory
+  options:
+    address: "http://10.0.0.3:8000"
+    branch: "main"
+    host_node:
+      kind: "DcimDevice"
+    schema_mappings:
+      - name: hostname
+        mapping: primary_address.address
+      - name: platform
+        mapping: platform.nornir_platform
+    group_mappings:
+      - location.name
+      - platform.name
+    defaults_file: "inventory/defaults.yaml"
+    group_file: "inventory/group.yaml"
+
+logging:
+  enabled: true
+  level: INFO
+  log_file: "nornir.log"

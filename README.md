@@ -48,6 +48,7 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
 | 4 | `4-tecnicas-avancadas/` | `cap-4` | Técnicas Avançadas: workflow de config reutilizável, transform de credenciais, retry/idempotência, pytest, inventory plugin próprio |
 | 5 | `5-arquitetura/` | `cap-5` | A Arquitetura de Automação de Redes: camadas NAF e o mapa do stack (concepts-only) |
 | 6 | `6-infrahub/` | `cap-6` | Infrahub como Source of Truth: InfrahubInventory, GraphQL, artifacts, drift |
+| 7 | `7-gitops/` | `cap-7` | GitOps com GitLab CI: repo como produto (ruff, requirements), pipeline lint/test/dry-run/deploy, proposed change como MR de dados, limites do CI |
 
 ## Diretório (por capítulo)
 
@@ -83,6 +84,12 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
   - `.infrahub.yml` — declaração de queries/transforms/artifact definitions carregada pelo Infrahub no Cap. 7 (Aula 4)
   - `artifacts_lab.py` — gera e puxa o artifact `startup-config` via `nornir-infrahub` (Aula 4)
   - `drift.py` — detecção de drift: intended (artifact do SoT) × running (`napalm get_config`), com exit code para CI (Aula 5)
+- `7-gitops/`:
+  - `.gitignore` + `requirements.txt` + `ruff.toml` — o repo como produto: o que versionar, stack fixado e lint/format com ruff (Aula 1)
+  - `README.md` — onboarding do próprio `nornir-lab/` (o que se clona e roda) (Aula 1)
+  - `.gitlab-ci.yml` — pipeline GitOps: `lint` (ruff) → `test` (pytest do Cap. 4) → `dry-run` (`deploy.py` sem `--commit`, diff como artefato) → `deploy` (manual, só na `main`) (Aula 2)
+  - reusa `deploy.py`, `tasks/`, `templates/`, `tests/`, `.infrahub.yml` dos capítulos anteriores — o snapshot foi formatado com `ruff` (Aula 1)
+  - Aulas 3–4 são conceituais (proposed change do Infrahub como MR de dados; limites do CI que motivam o Prefect) — Mão na Massa nas UIs de Infrahub/GitLab e Prefect (`http://10.0.0.2:4200`)
 
 ## Próximos Passos
 

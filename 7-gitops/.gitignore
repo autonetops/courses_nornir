@@ -5,3 +5,4 @@ nornir.log
 .pytest_cache/
 .ruff_cache/
 diff-report.txt
+.cache/

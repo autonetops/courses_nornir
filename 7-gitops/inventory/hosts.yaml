@@ -1,0 +1,54 @@
+r1:
+  hostname: 172.20.20.11
+  groups:
+    - ios          # dimensao: plataforma
+    - site_poa     # dimensao: site
+    - edge         # dimensao: papel
+  data:
+    loopback_ip: 10.255.0.1
+r2:
+  hostname: 172.20.20.12
+  groups:
+    - ios
+    - site_poa
+    - core
+  data:
+    loopback_ip: 10.255.0.2
+r3:
+  hostname: 172.20.20.13
+  groups:
+    - ios
+    - site_gru
+    - edge
+  data:
+    loopback_ip: 10.255.0.3
+r4:
+  hostname: 172.20.20.14
+  groups:
+    - ios
+    - site_gru
+    - core
+  data:
+    loopback_ip: 10.255.0.4
+eos1:
+  hostname: 172.20.20.21
+  groups:
+    - eos
+    - site_poa
+    - edge
+  data:
+    loopback_ip: 10.255.0.21
+eos2:
+  hostname: 172.20.20.22
+  groups:
+    - eos
+    - site_gru
+    - edge
+  data:
+    loopback_ip: 10.255.0.22
+f5:
+  hostname: 172.20.20.31
+  groups:
+    - f5
+    - site_poa
+    - lb
