@@ -4,10 +4,12 @@ Referência de bolso do **Capítulo 5** do curso *Nornir: da Execução à
 Arquitetura*. Este capítulo é conceitual — os diagramas abaixo são o "código"
 dele. Guarde-os: eles são o mapa da Parte II inteira.
 
-O recorte em camadas é um consenso da comunidade de automação de redes
-(Network Automation Forum / AutoCon; livro *Network Automation Architecture*,
-O'Reilly). Cada camada é definida por **responsabilidade**, não por produto —
-por isso as ferramentas são substituíveis.
+O recorte em camadas é um consenso da comunidade de automação de redes —
+o **NAF (Network Automation Forum)** e suas conferências AutoCon — com forma
+escrita no capítulo "Network Automation Architecture" de *Network
+Programmability and Automation*, 2ª edição (O'Reilly, 2023). Cada camada é
+definida por **responsabilidade**, não por produto — por isso as ferramentas
+são substituíveis.
 
 ## As cinco camadas (arquitetura de referência)
 
