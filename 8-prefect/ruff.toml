@@ -1,0 +1,15 @@
+# nornir-lab/ruff.toml
+# Config minima do ruff, usada pelo job `lint` do .gitlab-ci.yml.
+# ruff NAO esta instalado no sandbox nem no requirements.txt (nao e dep de
+# runtime): o CI o instala via pip so no job de lint.
+line-length = 88
+target-version = "py312"
+
+[lint]
+# Conjunto enxuto: erros de sintaxe/estilo (E/W), pyflakes (F) e ordenacao
+# de imports (I). Nada exotico — regras que o codigo do curso ja respeita.
+select = ["E", "F", "W", "I"]
+
+[lint.isort]
+# Modulos do proprio repo, para o ruff agrupar os imports corretamente.
+known-first-party = ["tasks", "transform", "nornir_lab_inventory", "drift", "flows"]

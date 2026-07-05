@@ -1,0 +1,11 @@
+!
+! ---- Config gerada pelo Nornir para {{ host.name }} ({{ host.hostname }}) ----
+!
+ip domain name {{ host['domain'] }}
+!
+interface Loopback0
+ description SoT :: site={{ host['site'] }} role={{ host['role'] }} regiao={{ host['region'] }}
+ ip address {{ host['loopback_ip'] }} 255.255.255.255
+!
+banner login ^C {{ host.name }} :: {{ host['site'] }}/{{ host['role'] }} :: acesso autorizado ^C
+!

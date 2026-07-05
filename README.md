@@ -49,6 +49,7 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
 | 5 | `5-arquitetura/` | `cap-5` | A Arquitetura de Automação de Redes: camadas NAF e o mapa do stack (concepts-only) |
 | 6 | `6-infrahub/` | `cap-6` | Infrahub como Source of Truth: InfrahubInventory, GraphQL, artifacts, drift |
 | 7 | `7-gitops/` | `cap-7` | GitOps com GitLab CI: repo como produto (ruff, requirements), pipeline lint/test/dry-run/deploy, proposed change como MR de dados, limites do CI |
+| 8 | `8-prefect/` | `cap-8` | Orquestração com Prefect: `@flow`/`@task`, deploy do Cap. 4 como flow, compliance agendado (cron), webhook do Infrahub → REST do Prefect |
 
 ## Diretório (por capítulo)
 
@@ -90,6 +91,12 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
   - `.gitlab-ci.yml` — pipeline GitOps: `lint` (ruff) → `test` (pytest do Cap. 4) → `dry-run` (`deploy.py` sem `--commit`, diff como artefato) → `deploy` (manual, só na `main`) (Aula 2)
   - reusa `deploy.py`, `tasks/`, `templates/`, `tests/`, `.infrahub.yml` dos capítulos anteriores — o snapshot foi formatado com `ruff` (Aula 1)
   - Aulas 3–4 são conceituais (proposed change do Infrahub como MR de dados; limites do CI que motivam o Prefect) — Mão na Massa nas UIs de Infrahub/GitLab e Prefect (`http://10.0.0.2:4200`)
+- `8-prefect/` (a camada de orquestração; o servidor do Prefect vive em `http://10.0.0.2:4200`):
+  - `flows/hello_flow.py` — primeiro `@flow`/`@task` com `retries` e `log_prints`; roda 100% local (servidor efêmero), sem device (Aula 2)
+  - `flows/deploy_flow.py` — embrulha o `deploy.py` do Cap. 4 num flow: uma task por site, retry por task (Prefect) sobre retry por host (Nornir); `InitNornir` por task run (Aula 3)
+  - `flows/compliance.py` — o `drift.py` como flow agendado; `.serve(cron="0 6 * * *")` serve o deployment sem runner efêmero (Aula 4)
+  - `flows/webhook_bridge.py` — ponte HTTP que o webhook do Infrahub aciona: `POST /deployments/{id}/create_flow_run` na API REST do Prefect (Aula 5)
+  - reusa `deploy.py`, `drift.py`, `tasks/`, `templates/`, `config-infrahub.yaml` dos capítulos anteriores; `PREFECT_API_URL=http://10.0.0.2:4200/api` faz as execuções aparecerem na UI do lab
 
 ## Próximos Passos
 
