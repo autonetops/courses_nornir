@@ -1,11 +1,10 @@
-import os
 from nornir import InitNornir
 from nornir_netmiko.tasks import netmiko_send_command
 from nornir_utils.plugins.functions import print_result
 
+import transform  # noqa: F401  (registra "prepara_host" do config.yaml)
+
 nr = InitNornir(config_file="config.yaml")
-nr.inventory.defaults.username = os.environ["NORNIR_USER"]
-nr.inventory.defaults.password = os.environ["NORNIR_PASS"]
 
 resultado = nr.run(
     task=netmiko_send_command,

@@ -4,11 +4,9 @@ runner:
     num_workers: 20
 
 inventory:
-  plugin: SimpleInventory
+  plugin: LabJSONInventory
   options:
-    host_file: "inventory/hosts.yaml"
-    group_file: "inventory/groups.yaml"
-    defaults_file: "inventory/defaults.yaml"
+    arquivo: "inventory/hosts.json"
   transform_function: "prepara_host"
 
 logging:

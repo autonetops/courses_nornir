@@ -1,0 +1,20 @@
+ios:
+  platform: cisco_xe
+eos:
+  platform: arista_eos
+f5:
+  platform: f5_bigip
+  data:
+    api_only: true
+
+site_poa:
+  data:
+    site: poa
+    region: sul
+
+edge:
+  data:
+    role: edge
+lb:
+  data:
+    role: lb

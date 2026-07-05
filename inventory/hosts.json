@@ -1,9 +1,9 @@
 {
-  "r1": {"model": "C8000V", "serial": "9XORQC1J2P9E", "rack": "poa-a01"},
-  "r2": {"model": "C8000V", "serial": "9XOA2B7K1M4T", "rack": "poa-a02"},
-  "r3": {"model": "C8000V", "serial": "9XOD5C3N8Q6R", "rack": "gru-b01"},
-  "r4": {"model": "C8000V", "serial": "9XOF9D1P2S7V", "rack": "gru-b02"},
-  "eos1": {"model": "cEOSLab", "serial": "SN-EOS-0001", "rack": "poa-a03"},
-  "eos2": {"model": "cEOSLab", "serial": "SN-EOS-0002", "rack": "gru-b03"},
-  "f5": {"model": "BIG-IP-VE", "serial": "SN-F5-0001", "rack": "poa-a04"}
+  "r1":   {"ip": "172.20.20.11", "platform": "cisco_xe",   "site": "poa", "role": "edge", "model": "C8000V",    "serial": "9XORQC1J2P9E", "rack": "poa-a01"},
+  "r2":   {"ip": "172.20.20.12", "platform": "cisco_xe",   "site": "poa", "role": "core", "model": "C8000V",    "serial": "9XOA2B7K1M4T", "rack": "poa-a02"},
+  "r3":   {"ip": "172.20.20.13", "platform": "cisco_xe",   "site": "gru", "role": "edge", "model": "C8000V",    "serial": "9XOD5C3N8Q6R", "rack": "gru-b01"},
+  "r4":   {"ip": "172.20.20.14", "platform": "cisco_xe",   "site": "gru", "role": "core", "model": "C8000V",    "serial": "9XOF9D1P2S7V", "rack": "gru-b02"},
+  "eos1": {"ip": "172.20.20.21", "platform": "arista_eos", "site": "poa", "role": "edge", "model": "cEOSLab",   "serial": "SN-EOS-0001",  "rack": "poa-a03"},
+  "eos2": {"ip": "172.20.20.22", "platform": "arista_eos", "site": "gru", "role": "edge", "model": "cEOSLab",   "serial": "SN-EOS-0002",  "rack": "gru-b03"},
+  "f5":   {"ip": "172.20.20.31", "platform": "f5_bigip",   "site": "poa", "role": "lb",   "model": "BIG-IP-VE", "serial": "SN-F5-0001",   "rack": "poa-a04"}
 }

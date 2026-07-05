@@ -3,6 +3,7 @@ from nornir.core.task import Result, Task
 from nornir_utils.plugins.functions import print_result
 
 from processors import Progresso
+import transform  # noqa: F401  (registra "prepara_host" do config.yaml)
 
 
 def verifica_ssh(task: Task) -> Result:

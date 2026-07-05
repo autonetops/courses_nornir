@@ -1,6 +1,8 @@
 from nornir import InitNornir
 from nornir_jinja2.plugins.tasks import template_file
 
+import transform  # noqa: F401  (registra "prepara_host" do config.yaml)
+
 nr = InitNornir(config_file="config.yaml")
 
 # Cada plataforma tem seu diretorio de templates: templates/ios e templates/eos.
