@@ -28,6 +28,16 @@ r_scrapli = roteadores.run(
     task=scrapli_send_command, command="show version"
 )
 
-# napalm ja devolve dict: nada de regex para pegar o modelo.
-print("modelo de r1 (napalm):", r_napalm["r1"].result["facts"]["model"])
+# 4) o MESMO getter na Arista — outro fabricante, as MESMAS chaves.
+#    Usa a connection_option napalm.platform = "eos".
+aristas = nr.filter(platform="arista_eos")
+r_napalm_eos = aristas.run(task=napalm_get, getters=["facts"])
+
+# napalm ja devolve dict: nada de regex para pegar o modelo —
+# e as chaves sao identicas em Cisco e Arista.
+print("modelo de r1   (napalm):", r_napalm["r1"].result["facts"]["model"])
+print("modelo de eos1 (napalm):", r_napalm_eos["eos1"].result["facts"]["model"])
+print("chaves r1  :", sorted(r_napalm["r1"].result["facts"]))
+print("chaves eos1:", sorted(r_napalm_eos["eos1"].result["facts"]))
 print_result(r_napalm)
+print_result(r_napalm_eos)
