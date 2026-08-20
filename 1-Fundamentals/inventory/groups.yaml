@@ -3,7 +3,7 @@ ios:
   platform: cisco_ios          
   connection_options:
     netmiko:
-      platform: cisco_ios      
+      platform: cisco_xe   
       extras:
         conn_timeout: 30
     napalm:
