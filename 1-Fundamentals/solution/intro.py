@@ -5,7 +5,7 @@ from nornir_utils.plugins.functions import print_result
 nr = InitNornir(config_file="config.yaml")
 
 def hello_world(task: Task) -> Result:
-    task.run(task="debug", msg=f"Hello, {task.host.hostname}!")
+    return Result(host=task.host, result=f"Hello, {task.host.hostname}!")
 
 
 if __name__ == "__main__":
