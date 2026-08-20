@@ -1,0 +1,34 @@
+# nornir-lab/pyproject.toml — Capitulo 1: Fundamentos
+#
+# Cada pasta N-<tema> e um projeto autocontido (o `nornir-lab/` das aulas).
+# Entre na pasta do capitulo, sincronize o ambiente e rode os scripts:
+#
+#     cd 1-Fundamentals
+#     uv sync                        # cria .venv/ com o stack do capitulo
+#     export NORNIR_USER="admin" NORNIR_PASS="autonetops"
+#     uv run python get_version.py   # roda dentro do .venv
+#
+# Alternativa sem uv: `python -m venv .venv && source .venv/bin/activate`
+# e `pip install -e .` (ou `pip install nornir==3.5.0 ...`).
+#
+# `[tool.uv] package = false` diz ao uv que isto nao e uma biblioteca para
+# empacotar: os scripts rodam da raiz da pasta (o `cwd` resolve tanto os
+# imports locais quanto os caminhos relativos do config.yaml), entao o uv so
+# precisa montar o ambiente com as dependencias.
+
+[project]
+name = "nornir-lab-cap1"
+version = "1.0.0"
+description = "Cap. 1 — Fundamentos: config.yaml, inventario e show version"
+# Mesma minor do sandbox do lab e da imagem do CI (python:3.12-slim).
+requires-python = ">=3.12,<3.13"
+
+# Stack fixado do curso — as mesmas versoes do requirements.txt do Cap. 7.
+dependencies = [
+    "nornir==3.5.0",
+    "nornir-netmiko==1.0.1",
+    "nornir-utils==0.2.0",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,35 @@
+# nornir-lab/pyproject.toml — Capitulo 4: Tecnicas Avancadas
+#
+#     cd 4-tecnicas-avancadas
+#     uv sync                            # runtime + grupo dev (pytest)
+#     uv run python -m pytest tests/ -v  # 17 verdes, sem device e sem creds
+#     uv run python erros_lab.py         # device-free
+#     uv run python deploy.py            # dry-run (precisa de NORNIR_USER/PASS)
+#
+# O pytest fica no grupo `dev` (PEP 735): nao e dependencia de runtime, mas o
+# `uv sync` o instala por padrao. Para so o runtime: `uv sync --no-dev`.
+
+[project]
+name = "nornir-lab-cap4"
+version = "4.0.0"
+description = "Cap. 4 — Tecnicas avancadas: workflow de config, retry, pytest e inventory plugin proprio"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "nornir==3.5.0",
+    "nornir-netmiko==1.0.1",
+    "nornir-napalm==0.5.0",
+    "nornir-scrapli==2025.1.30",
+    "nornir-jinja2==0.2.0",
+    "nornir-utils==0.2.0",
+    "requests>=2.32",
+    "urllib3>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+]
+
+[tool.uv]
+package = false

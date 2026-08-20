@@ -1,0 +1,24 @@
+# nornir-lab/pyproject.toml — Capitulo 2: Gerenciando o Inventario
+#
+#     cd 2-inventario
+#     uv sync
+#     uv run python external_inventory.py   # device-free
+#     uv run python filter_lab.py           # toca r1 e eos1 (precisa de creds)
+#
+# Veja o cabecalho de 1-Fundamentals/pyproject.toml para a explicacao do
+# `package = false` e da alternativa com venv + pip.
+
+[project]
+name = "nornir-lab-cap2"
+version = "2.0.0"
+description = "Cap. 2 — Inventario: hierarquia, grupos compostos, filtros e transform"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "nornir==3.5.0",
+    "nornir-netmiko==1.0.1",
+    "nornir-utils==0.2.0",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,42 @@
+# nornir-lab/pyproject.toml — Capitulo 6: Infrahub como Source of Truth
+#
+#     cd 6-infrahub
+#     uv sync
+#     export NORNIR_USER="student" NORNIR_PASS="autonetops123"
+#     export INFRAHUB_ADDRESS="http://10.0.0.2:8000" INFRAHUB_TOKEN="<token>"
+#     uv run python sot_lab.py             # leitura do SoT via infrahub-sdk
+#     uv run python infrahub_inventario.py # inventario nascendo do Infrahub
+#     uv run python drift.py               # intended (SoT) x running (device)
+#
+# Novidades do capitulo: o `infrahub-sdk` (cliente do SoT), o plugin de
+# inventario/tasks `nornir-infrahub`, e o `jinja2`/`pyyaml` usados direto
+# (render_sot.py le a query .gql e renderiza o template fora da task Nornir).
+
+[project]
+name = "nornir-lab-cap6"
+version = "6.0.0"
+description = "Cap. 6 — Infrahub como SoT: InfrahubInventory, GraphQL, artifacts e drift"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "nornir==3.5.0",
+    "nornir-netmiko==1.0.1",
+    "nornir-napalm==0.5.0",
+    "nornir-scrapli==2025.1.30",
+    "nornir-jinja2==0.2.0",
+    "nornir-utils==0.2.0",
+    "infrahub-sdk==1.22.1",
+    "nornir-infrahub==1.1.2",
+    "jinja2>=3.1",
+    "pyyaml>=6.0",
+    "requests>=2.32",
+    "urllib3>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+]
+
+[tool.uv]
+package = false

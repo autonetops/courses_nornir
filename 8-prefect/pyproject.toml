@@ -1,0 +1,55 @@
+# nornir-lab/pyproject.toml — Capitulo 8: Orquestracao com Prefect
+#
+#     cd 8-prefect
+#     uv sync
+#     # sem servidor: o prefect 3.7 so sobe o servidor temporario se voce pedir
+#     PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true uv run python flows/hello_flow.py
+#     # com o servidor do lab: as execucoes aparecem na UI
+#     export PREFECT_API_URL="http://10.0.0.2:4200/api"
+#     uv run python flows/deploy_flow.py
+#
+# ATENCAO — os flows importam modulos da RAIZ da pasta (`transform`,
+# `tasks.config_mgmt`, `drift`), mas `python flows/x.py` poe `flows/` no
+# sys.path, nao a raiz. Rode-os sempre da raiz do capitulo e com a raiz no
+# path:
+#
+#     PYTHONPATH=. uv run python flows/deploy_flow.py
+#
+# (o `hello_flow.py` nao importa nada local e roda sem isso).
+#
+# Igual ao Cap. 7, este arquivo espelha o `requirements.txt`; o ruff fica no
+# grupo `dev`, fora do runtime.
+
+[project]
+name = "nornir-lab-cap8"
+version = "8.0.0"
+description = "Cap. 8 — Orquestracao com Prefect: flows, tasks, compliance agendado e webhook"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "nornir==3.5.0",
+    "nornir-netmiko==1.0.1",
+    "nornir-napalm==0.5.0",
+    "nornir-scrapli==2025.1.30",
+    "nornir-jinja2==0.2.0",
+    "nornir-utils==0.2.0",
+    "infrahub-sdk==1.22.1",
+    "nornir-infrahub==1.1.2",
+    "prefect==3.7.7",
+    # Usado direto pela ponte do webhook (flows/webhook_bridge.py).
+    "httpx>=0.27",
+    "jinja2>=3.1",
+    "pyyaml>=6.0",
+    "requests>=2.32",
+    "urllib3>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+    "ruff==0.9.10",
+]
+
+[tool.uv]
+package = false

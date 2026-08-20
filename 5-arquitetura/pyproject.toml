@@ -1,0 +1,21 @@
+# nornir-lab/pyproject.toml — Capitulo 5: A Arquitetura de Automacao de Redes
+#
+# Capitulo CONCEITUAL: nao ha codigo aqui, so `arquitetura.md` (as camadas do
+# NAF e o mapa do stack do curso). O arquivo existe para que todo capitulo
+# tenha o mesmo fluxo — `cd`, `uv sync`, trabalhar — e para dar o proximo
+# passo em `6-infrahub/`, onde a arquitetura vira codigo.
+#
+#     cd 5-arquitetura
+#     uv sync    # cria um .venv/ vazio (nenhuma dependencia a instalar)
+
+[project]
+name = "nornir-lab-cap5"
+version = "5.0.0"
+description = "Cap. 5 — A arquitetura NAF em camadas e o mapa do stack (concepts-only)"
+requires-python = ">=3.12,<3.13"
+
+# Sem dependencias: o capitulo nao roda codigo.
+dependencies = []
+
+[tool.uv]
+package = false

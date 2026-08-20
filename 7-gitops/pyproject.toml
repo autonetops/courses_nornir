@@ -1,0 +1,48 @@
+# nornir-lab/pyproject.toml — Capitulo 7: GitOps com GitLab CI
+#
+#     cd 7-gitops
+#     uv sync                            # runtime + grupo dev (pytest, ruff)
+#     uv run ruff check . && uv run ruff format --check .   # job `lint`
+#     uv run python -m pytest tests/ -q                     # job `test`
+#     uv run python deploy.py                               # job `dry-run`
+#
+# Convive com o `requirements.txt`: ele e o artefato do capitulo (o stack
+# fixado que o `.gitlab-ci.yml` instala com `pip install -r requirements.txt`)
+# e as versoes aqui sao exatamente as mesmas. Este pyproject e o caminho local
+# com uv; mexeu num, espelhe no outro.
+#
+# O ruff continua FORA do runtime — a licao do capitulo se mantem. Aqui ele
+# vive no grupo `dev` (PEP 735), que o `uv sync` instala por padrao e o
+# `uv sync --no-dev` deixa de fora, do mesmo jeito que o CI so o instala no
+# job de lint.
+
+[project]
+name = "nornir-lab-cap7"
+version = "7.0.0"
+description = "Cap. 7 — GitOps com GitLab CI: repo como produto, pipeline lint/test/dry-run/deploy"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+
+dependencies = [
+    "nornir==3.5.0",
+    "nornir-netmiko==1.0.1",
+    "nornir-napalm==0.5.0",
+    "nornir-scrapli==2025.1.30",
+    "nornir-jinja2==0.2.0",
+    "nornir-utils==0.2.0",
+    "infrahub-sdk==1.22.1",
+    "nornir-infrahub==1.1.2",
+    "jinja2>=3.1",
+    "pyyaml>=6.0",
+    "requests>=2.32",
+    "urllib3>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+    "ruff==0.9.10",
+]
+
+[tool.uv]
+package = false
