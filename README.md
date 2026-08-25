@@ -15,10 +15,37 @@ As credenciais nunca são hardcoded. Antes de rodar qualquer script, exporte as 
 
 ```bash
 export NORNIR_USER="admin"
-export NORNIR_PASS="autonetops"
+export NORNIR_PASS="admin"
 ```
 
 O script falhará rapidamente (fail-fast) se essas variáveis não estiverem definidas.
+
+Exceção: os CE **Nokia SR Linux** (`ce-custc-01`/`02`) saem de fábrica com a
+senha `NokiaSrl1!`. A partir do Cap. 2, os scripts leem `SRL_PASS` e a aplicam
+na camada de **grupo** do inventário (que vence os defaults):
+
+```bash
+export SRL_PASS="NokiaSrl1!"
+```
+
+Num lab que já convergiu pela Parte II (o push do Infrahub redefine a senha do
+SR Linux para `admin`), basta não exportar `SRL_PASS` — os scripts caem no
+fallback `NORNIR_PASS`.
+
+## Topologia do lab
+
+Os scripts falam com o **intent-lab** (containerlab) do repositório
+`autonetops_infrahub` — `clab/lab.clab.yml`. Suba-o com `containerlab deploy`
+antes dos capítulos que tocam dispositivos:
+
+| Host | Imagem | Papel | IP de gerência |
+|------|--------|-------|----------------|
+| `pe-emea-01` | Arista cEOS | PE (edge) — EMEA POP A | 172.20.20.11 |
+| `pe-emea-02` | Arista cEOS | PE (edge) + peering — EMEA POP B | 172.20.20.12 |
+| `core-rr-01` | Cisco IOL (IOS) | Route reflector (core) — EMEA POP A | 172.20.20.13 |
+| `ce-custc-01` | Nokia SR Linux | CE do cliente C (cpe) — EMEA POP A | 172.20.20.21 |
+| `ce-custc-02` | Nokia SR Linux | CE do cliente C (cpe) — EMEA POP B | 172.20.20.22 |
+| `peer-inet-01` | FRR | Peer de internet (edge, **sem SSH**) | 172.20.20.31 |
 
 ## Estrutura de Pastas
 
@@ -100,17 +127,20 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
 
 ## Próximos Passos
 
-Em `2-inventario/`, o inventário tem **sete** hosts — e o `f5` é API-only (sem
-SSH). Rodar `get_version.py` sem filtro vai falhar no `f5`; isso é proposital e
-motiva os filtros do Capítulo 2. Prefira o script filtrado:
+Em `2-inventario/`, o inventário tem os **seis** hosts do lab — e o
+`peer-inet-01` (FRR) não tem SSH. Rodar `get_version.py` sem filtro vai falhar
+nele; isso é proposital e motiva os filtros do Capítulo 2. Prefira o script
+filtrado:
 
 ```bash
 cd 2-inventario
 python filter_lab.py
 ```
 
-Ele aplica `show clock` apenas na fatia `edge & poa` (`r1` e `eos1`), rodando em
-paralelo. Para explorar o inventário sem tocar em nenhum dispositivo, rode
+Ele aplica `show version` apenas na fatia `site == emea-pop-a` — `pe-emea-01`
+(Arista EOS), `core-rr-01` (Cisco IOL) e `ce-custc-01` (SR Linux) — três
+plataformas com um único filtro, rodando em paralelo. Para explorar o
+inventário sem tocar em nenhum dispositivo, rode
 `python external_inventory.py`.
 
 Em `3-tarefas-e-plugins/`, os scripts colocam o inventário para **trabalhar**.

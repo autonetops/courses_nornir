@@ -1,12 +1,4 @@
 # --- Dimensao PLATAFORMA (platform + connection_options) ---
-ios:
-  platform: cisco_xe
-  connection_options:
-    netmiko:
-      platform: cisco_xe
-      extras:
-        conn_timeout: 30
-
 eos:
   platform: arista_eos
   connection_options:
@@ -15,20 +7,36 @@ eos:
       extras:
         conn_timeout: 30
 
-f5:
-  platform: f5_bigip
+ios:
+  platform: cisco_ios        # Cisco IOL roda IOS classico
+  connection_options:
+    netmiko:
+      platform: cisco_ios
+      extras:
+        conn_timeout: 30
+
+srl:
+  platform: nokia_srl        # Nokia SR Linux (7220 IXR-D3L)
+  connection_options:
+    netmiko:
+      platform: nokia_srl
+      extras:
+        conn_timeout: 30
+
+frr:
+  platform: linux
   data:
-    api_only: true          # sem CLI (API-only)
+    no_ssh: true             # container FRR sem SSH — gerencia via vtysh
 
 # --- Dimensao SITE ---
-site_poa:
+pop_a:
   data:
-    site: poa
-    region: sul
-site_gru:
+    site: emea-pop-a
+    region: emea
+pop_b:
   data:
-    site: gru
-    region: sudeste
+    site: emea-pop-b
+    region: emea
 
 # --- Dimensao PAPEL ---
 edge:
@@ -37,6 +45,6 @@ edge:
 core:
   data:
     role: core
-lb:
+cpe:
   data:
-    role: lb
+    role: cpe

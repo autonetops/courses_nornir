@@ -1,46 +1,6 @@
-
-ios:
-  platform: cisco_ios          
-  connection_options:
-    netmiko:
-      platform: cisco_xe   
-      extras:
-        conn_timeout: 30
-    napalm:
-      platform: ios           
-    scrapli:
-      platform: cisco_iosxe   
-
+# O grupo carrega o que os hosts de uma plataforma compartilham.
+# `platform` e lido pelo plugin de conexao (netmiko: vira o device_type).
 eos:
-  platform: arista_eos        
-  connection_options:
-    netmiko:
-      platform: arista_eos
-      extras:
-        conn_timeout: 30
-    napalm:
-      platform: eos           
-    scrapli:
-      platform: arista_eos    
-
-f5:
-  platform: f5_bigip
-  data:
-    api_only: true            
-
-
-site_poa:
-  data:
-    site: poa
-    region: sul
-
-
-edge:
-  data:
-    role: edge
-core:
-  data:
-    role: core
-lb:
-  data:
-    role: lb
+  platform: arista_eos       # Arista cEOS
+ios:
+  platform: cisco_ios        # Cisco IOL roda IOS classico

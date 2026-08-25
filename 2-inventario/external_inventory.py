@@ -18,9 +18,9 @@ nr = InitNornir(
     },
 )
 
-for name in ("r1", "eos1", "f5"):
+for name in ("pe-emea-01", "ce-custc-01", "peer-inet-01"):
     h = nr.inventory.hosts[name]
     print(name, h["model"], h["serial"], h["rack"])
-# r1 C8000V 9XORQC1J2P9E poa-a01
-# eos1 cEOSLab SN-EOS-0001 poa-a03
-# f5 BIG-IP-VE SN-F5-0001 poa-a04
+# pe-emea-01 cEOSLab SN-EOS-A101 pop-a-r01
+# ce-custc-01 7220 IXR-D3L SN-SRL-A301 pop-a-r03
+# peer-inet-01 FRR 10.1 SN-FRR-B401 pop-b-r04

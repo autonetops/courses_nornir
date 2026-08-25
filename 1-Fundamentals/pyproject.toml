@@ -5,7 +5,7 @@
 #
 #     cd 1-Fundamentals
 #     uv sync                        # cria .venv/ com o stack do capitulo
-#     export NORNIR_USER="admin" NORNIR_PASS="autonetops"
+#     export NORNIR_USER="admin" NORNIR_PASS="admin"
 #     uv run python get_version.py   # roda dentro do .venv
 #
 # Alternativa sem uv: `python -m venv .venv && source .venv/bin/activate`

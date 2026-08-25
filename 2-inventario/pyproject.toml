@@ -2,8 +2,11 @@
 #
 #     cd 2-inventario
 #     uv sync
-#     uv run python external_inventory.py   # device-free
-#     uv run python filter_lab.py           # toca r1 e eos1 (precisa de creds)
+#     export NORNIR_USER="admin" NORNIR_PASS="admin"
+#     export SRL_PASS="NokiaSrl1!"           # senha de fabrica do SR Linux
+#     uv run python external_inventory.py    # device-free
+#     uv run python filter_lab.py            # toca o POP A: pe-emea-01,
+#                                            # core-rr-01 e ce-custc-01
 #
 # Veja o cabecalho de 1-Fundamentals/pyproject.toml para a explicacao do
 # `package = false` e da alternativa com venv + pip.

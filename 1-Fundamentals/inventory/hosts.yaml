@@ -1,21 +1,18 @@
 pe-emea-01:
   hostname: 172.20.20.11
   groups:
-    - eos          # dimensao: plataforma
-    - edge         # dimensao: papel/role
+    - eos
   data:
-    loopback_ip: 1.1.1.1
+    loopback_ip: 10.255.0.1
 pe-emea-02:
   hostname: 172.20.20.12
   groups:
     - eos
-    - edge
   data:
     loopback_ip: 10.255.0.2
 core-rr-01:
   hostname: 172.20.20.13
   groups:
     - ios
-    - core
   data:
     loopback_ip: 10.255.0.3
