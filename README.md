@@ -81,7 +81,7 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
 ## Diretório (por capítulo)
 
 - `1-Fundamentals/` — `config.yaml`, `inventory/` (hosts/groups/defaults) e `get_version.py`: primeiro contato, show version nos roteadores
-- `2-inventario/` — hierarquia de inventário, grupos compostos, `filter_lab.py` e `transform.py` (`enrich_from_cmdb`), `external_inventory.py`
+- `2-inventario/` — hierarquia de inventário, grupos compostos e `filter_lab.py`; `netbox_inventory.py` (Aula 4) e `infrahub_inventory.py` (Aula 5) — o inventário nascendo do NetBox e do Infrahub do curso (exporte `NB_URL`/`NB_TOKEN` e `INFRAHUB_ADDRESS`/`INFRAHUB_TOKEN`)
 - `3-tarefas-e-plugins/`:
   - `tasks/facts.py` — task custom sobre netmiko (uptime); `tasks/f5_api.py` — task HTTP iControl REST (F5 API-only)
   - `custom_task_lab.py` — roda a task custom `uptime` (Aula 1)
@@ -140,8 +140,9 @@ python filter_lab.py
 Ele aplica `show version` apenas na fatia `site == emea-pop-a` — `pe-emea-01`
 (Arista EOS), `core-rr-01` (Cisco IOL) e `ce-custc-01` (SR Linux) — três
 plataformas com um único filtro, rodando em paralelo. Para explorar o
-inventário sem tocar em nenhum dispositivo, rode
-`python external_inventory.py`.
+inventário sem tocar em nenhum dispositivo, rode `python netbox_inventory.py`
+ou `python infrahub_inventory.py` (com os tokens do curso exportados) — o
+inventário nascendo direto do NetBox e do Infrahub.
 
 Em `3-tarefas-e-plugins/`, os scripts colocam o inventário para **trabalhar**.
 Dois deles rodam **sem lab** (Python puro, ótimos para estudar):

@@ -1,8 +1,0 @@
-{
-  "pe-emea-01": {"model": "cEOSLab", "serial": "SN-EOS-A101", "rack": "pop-a-r01"},
-  "pe-emea-02": {"model": "cEOSLab", "serial": "SN-EOS-B101", "rack": "pop-b-r01"},
-  "core-rr-01": {"model": "IOL", "serial": "SN-IOL-A201", "rack": "pop-a-r02"},
-  "ce-custc-01": {"model": "7220 IXR-D3L", "serial": "SN-SRL-A301", "rack": "pop-a-r03"},
-  "ce-custc-02": {"model": "7220 IXR-D3L", "serial": "SN-SRL-B301", "rack": "pop-b-r03"},
-  "peer-inet-01": {"model": "FRR 10.1", "serial": "SN-FRR-B401", "rack": "pop-b-r04"}
-}
