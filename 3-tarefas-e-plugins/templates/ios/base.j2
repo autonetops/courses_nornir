@@ -3,9 +3,7 @@
 !
 ip domain name {{ host['domain'] }}
 !
-interface Loopback0
- description SoT :: site={{ host['site'] }} role={{ host['role'] }} regiao={{ host['region'] }}
- ip address {{ host['loopback_ip'] }} 255.255.255.255
-!
-banner login ^C {{ host.name }} :: {{ host['site'] }}/{{ host['role'] }} :: acesso autorizado ^C
+interface Loopback100
+ description nornir :: site={{ host['site'] }} role={{ host['role'] }} regiao={{ host['region'] }}
+ ip address {{ host['lab_loopback'] }} 255.255.255.255
 !

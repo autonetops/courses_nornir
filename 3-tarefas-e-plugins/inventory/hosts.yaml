@@ -1,54 +1,49 @@
-r1:
+# Cada host lista uma dimensao de cada tipo: plataforma, site e papel.
+# loopback_ip e a Loopback0 REAL do dispositivo (pertence ao SoT — nao mexa);
+# lab_loopback e o endereco da SUA Loopback100, usada nas aulas de
+# configuracao e template deste capitulo.
+pe-emea-01:
   hostname: 172.20.20.11
   groups:
-    - ios          # dimensao: plataforma
-    - site_poa     # dimensao: site
+    - eos          # dimensao: plataforma
+    - pop_a        # dimensao: site
     - edge         # dimensao: papel
   data:
     loopback_ip: 10.255.0.1
-r2:
+    lab_loopback: 10.255.100.1
+pe-emea-02:
   hostname: 172.20.20.12
   groups:
-    - ios
-    - site_poa
-    - core
+    - eos
+    - pop_b
+    - edge
   data:
     loopback_ip: 10.255.0.2
-r3:
+    lab_loopback: 10.255.100.2
+core-rr-01:
   hostname: 172.20.20.13
   groups:
     - ios
-    - site_gru
-    - edge
-  data:
-    loopback_ip: 10.255.0.3
-r4:
-  hostname: 172.20.20.14
-  groups:
-    - ios
-    - site_gru
+    - pop_a
     - core
   data:
-    loopback_ip: 10.255.0.4
-eos1:
+    loopback_ip: 10.255.0.3
+    lab_loopback: 10.255.100.3
+ce-custc-01:
   hostname: 172.20.20.21
   groups:
-    - eos
-    - site_poa
-    - edge
-  data:
-    loopback_ip: 10.255.0.21
-eos2:
+    - srl
+    - pop_a
+    - cpe
+ce-custc-02:
   hostname: 172.20.20.22
   groups:
-    - eos
-    - site_gru
-    - edge
-  data:
-    loopback_ip: 10.255.0.22
-f5:
+    - srl
+    - pop_b
+    - cpe
+peer-inet-01:
   hostname: 172.20.20.31
   groups:
-    - f5
-    - site_poa
-    - lb
+    - frr
+    - pop_b
+    - edge

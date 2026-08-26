@@ -10,34 +10,34 @@ nr = InitNornir(config_file="config.yaml")
 nr.inventory.defaults.username = os.environ["NORNIR_USER"]
 nr.inventory.defaults.password = os.environ["NORNIR_PASS"]
 
-# Roda so nos roteadores IOS-XE (o F5 e API-only; ver f5_api_lab.py).
-roteadores = nr.filter(platform="cisco_xe")
+# Runs on both Arista PEs (peer-inet-01 does not speak SSH; see sonda_lab.py).
+pes = nr.filter(platform="arista_eos")
 
-# 1) netmiko — texto CRU (voce faz o parsing).
-r_netmiko = roteadores.run(
+# 1) netmiko — RAW text (you do the parsing).
+r_netmiko = pes.run(
     task=netmiko_send_command, command_string="show version"
 )
 
-# 2) napalm — dados ESTRUTURADOS via getters (multi-vendor, sem parsing).
-#    Usa a connection_option napalm.platform = "ios".
-r_napalm = roteadores.run(task=napalm_get, getters=["facts"])
+# 2) napalm — STRUCTURED data through getters (multi-vendor, no parsing).
+#    Uses the connection_option napalm.platform = "eos" (eAPI, not SSH).
+r_napalm = pes.run(task=napalm_get, getters=["facts"])
 
-# 3) scrapli — texto cru, porem rapido e com API moderna.
-#    Usa a connection_option scrapli.platform = "cisco_iosxe".
-r_scrapli = roteadores.run(
+# 3) scrapli — raw text too, but fast and with a modern API.
+#    Uses the connection_option scrapli.platform = "arista_eos".
+r_scrapli = pes.run(
     task=scrapli_send_command, command="show version"
 )
 
-# 4) o MESMO getter na Arista — outro fabricante, as MESMAS chaves.
-#    Usa a connection_option napalm.platform = "eos".
-aristas = nr.filter(platform="arista_eos")
-r_napalm_eos = aristas.run(task=napalm_get, getters=["facts"])
+# 4) the SAME getter on the Cisco core — another vendor, the SAME keys.
+#    Uses the connection_option napalm.platform = "ios".
+core = nr.filter(platform="cisco_ios")
+r_napalm_ios = core.run(task=napalm_get, getters=["facts"])
 
-# napalm ja devolve dict: nada de regex para pegar o modelo —
-# e as chaves sao identicas em Cisco e Arista.
-print("modelo de r1   (napalm):", r_napalm["r1"].result["facts"]["model"])
-print("modelo de eos1 (napalm):", r_napalm_eos["eos1"].result["facts"]["model"])
-print("chaves r1  :", sorted(r_napalm["r1"].result["facts"]))
-print("chaves eos1:", sorted(r_napalm_eos["eos1"].result["facts"]))
+# napalm already returns a dict: no regex to grab the model —
+# and the keys are identical on Arista and Cisco.
+print("pe-emea-01 model (napalm):", r_napalm["pe-emea-01"].result["facts"]["model"])
+print("core-rr-01 model (napalm):", r_napalm_ios["core-rr-01"].result["facts"]["model"])
+print("pe-emea-01 keys:", sorted(r_napalm["pe-emea-01"].result["facts"]))
+print("core-rr-01 keys:", sorted(r_napalm_ios["core-rr-01"].result["facts"]))
 print_result(r_napalm)
-print_result(r_napalm_eos)
+print_result(r_napalm_ios)

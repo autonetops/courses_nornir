@@ -396,8 +396,6 @@ dependencies = [
     { name = "nornir-netmiko" },
     { name = "nornir-scrapli" },
     { name = "nornir-utils" },
-    { name = "requests" },
-    { name = "urllib3" },
 ]
 
 [package.metadata]
@@ -408,8 +406,6 @@ requires-dist = [
     { name = "nornir-netmiko", specifier = "==1.0.1" },
     { name = "nornir-scrapli", specifier = "==2025.1.30" },
     { name = "nornir-utils", specifier = "==0.2.0" },
-    { name = "requests", specifier = ">=2.32" },
-    { name = "urllib3", specifier = ">=2.0" },
 ]
 
 [[package]]

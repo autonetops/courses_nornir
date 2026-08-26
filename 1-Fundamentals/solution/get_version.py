@@ -7,8 +7,8 @@ nr = InitNornir(config_file="config.yaml")
 nr.inventory.defaults.username = os.environ["NORNIR_USER"]
 nr.inventory.defaults.password = os.environ["NORNIR_PASS"]
 
-resultado = nr.run(
+results = nr.run(
     task=netmiko_send_command,
     command_string="show version",
 )
-print_result(resultado)
+print_result(results)

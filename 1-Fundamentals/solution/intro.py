@@ -9,5 +9,5 @@ def hello_world(task: Task) -> Result:
 
 
 if __name__ == "__main__":
-    resultado = nr.run(task=hello_world)
-    print_result(resultado)
+    results = nr.run(task=hello_world)
+    print_result(results)

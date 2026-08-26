@@ -1,16 +1,4 @@
 # --- Dimensao PLATAFORMA (platform + connection_options) ---
-ios:
-  platform: cisco_xe          # nome NETMIKO (base)
-  connection_options:
-    netmiko:
-      platform: cisco_xe      # device_type do netmiko
-      extras:
-        conn_timeout: 30
-    napalm:
-      platform: ios           # nome que o NAPALM espera para IOS-XE
-    scrapli:
-      platform: cisco_iosxe   # nome que o SCRAPLI espera para IOS-XE
-
 eos:
   platform: arista_eos        # nome NETMIKO (base)
   connection_options:
@@ -19,24 +7,47 @@ eos:
       extras:
         conn_timeout: 30
     napalm:
-      platform: eos           # nome que o NAPALM espera para Arista
+      platform: eos           # nome que o NAPALM espera para Arista (fala eAPI)
     scrapli:
       platform: arista_eos    # o scrapli tambem chama de arista_eos
 
-f5:
-  platform: f5_bigip
+ios:
+  platform: cisco_ios         # Cisco IOL roda IOS classico
+  connection_options:
+    netmiko:
+      platform: cisco_ios
+      extras:
+        conn_timeout: 30
+    napalm:
+      platform: ios           # o driver "ios" cobre IOS classico e IOS-XE
+    scrapli:
+      platform: cisco_iosxe   # o driver iosxe do scrapli tambem fala IOS classico
+
+srl:
+  platform: nokia_srl         # Nokia SR Linux (7220 IXR-D3L)
+  connection_options:
+    netmiko:
+      platform: nokia_srl
+      extras:
+        conn_timeout: 30
+  # Sem bloco napalm: NAO existe driver NAPALM (core) para SR Linux.
+  # get_connection_parameters("napalm") cai no platform base (nokia_srl),
+  # um nome que o napalm nao conhece — SR Linux fica com o netmiko.
+
+frr:
+  platform: linux
   data:
-    api_only: true            # sem CLI (API-only)
+    no_ssh: true             # container FRR sem SSH — gerencia via vtysh
 
 # --- Dimensao SITE ---
-site_poa:
+pop_a:
   data:
-    site: poa
-    region: sul
-site_gru:
+    site: emea-pop-a
+    region: emea
+pop_b:
   data:
-    site: gru
-    region: sudeste
+    site: emea-pop-b
+    region: emea
 
 # --- Dimensao PAPEL ---
 edge:
@@ -45,6 +56,6 @@ edge:
 core:
   data:
     role: core
-lb:
+cpe:
   data:
-    role: lb
+    role: cpe

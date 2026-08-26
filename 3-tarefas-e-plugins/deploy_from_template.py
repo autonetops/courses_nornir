@@ -31,11 +31,11 @@ def render_e_deploy(task: Task, path: str) -> Result:
 
 
 # Uma passada por plataforma: cada uma usa o seu diretorio de templates.
-ios = nr.filter(platform="cisco_xe")
-r_ios = ios.run(task=render_e_deploy, path="templates/ios")
-
 eos = nr.filter(platform="arista_eos")
 r_eos = eos.run(task=render_e_deploy, path="templates/eos")
 
-print_result(r_ios)
+ios = nr.filter(platform="cisco_ios")
+r_ios = ios.run(task=render_e_deploy, path="templates/ios")
+
 print_result(r_eos)
+print_result(r_ios)

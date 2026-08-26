@@ -2,36 +2,36 @@ from nornir import InitNornir
 from nornir.core.task import Result, Task
 from nornir_utils.plugins.functions import print_result
 
-from processors import Progresso
+from processors import Progress
 
 
-def verifica_ssh(task: Task) -> Result:
-    """Simula uma verificacao de acesso (device-free, roda sem lab).
+def check_ssh(task: Task) -> Result:
+    """Simulates an access check (device-free, runs without the lab).
 
-    O F5 e API-only, entao 'falha' no SSH — perfeito para estudar
-    hosts que falham, `failed_hosts` e processors sem depender do lab.
+    peer-inet-01 is `no_ssh: true`, so it 'fails' on SSH — perfect to study
+    failing hosts, `failed_hosts` and processors without depending on the lab.
     """
-    if task.host.get("api_only", False):
-        raise ConnectionError("dispositivo API-only nao fala SSH")
+    if task.host.get("no_ssh", False):
+        raise ConnectionError("device without SSH — managed through local vtysh")
     return Result(host=task.host, result=f"{task.host.name}: SSH OK")
 
 
 nr = InitNornir(config_file="config.yaml")
 
-# 1) Execucao crua: por padrao, uma falha NAO interrompe os demais.
-resultado = nr.run(task=verifica_ssh)
-print("failed?      ", resultado.failed)
-print("failed_hosts ", sorted(resultado.failed_hosts))
-print("f5 exception ", repr(resultado["f5"][0].exception))
+# 1) Raw execution: by default, one failure does NOT stop the others.
+results = nr.run(task=check_ssh)
+print("failed?      ", results.failed)
+print("failed_hosts ", sorted(results.failed_hosts))
+print("peer exception", repr(results["peer-inet-01"][0].exception))
 print()
 
-# 2) Mesmo trabalho, com um processor para um relatorio limpo.
-#    nr fresco: senao o f5 (ja marcado como falho) seria PULADO.
+# 2) Same work, with a processor for a clean report.
+#    A fresh nr: otherwise peer-inet-01 (already marked failed) would be SKIPPED.
 nr2 = InitNornir(config_file="config.yaml")
-nr2.with_processors([Progresso()]).run(task=verifica_ssh)
+nr2.with_processors([Progress()]).run(task=check_ssh)
 
-# 3) print_result com filtro de severidade: so o que falhou.
+# 3) print_result with a severity filter: only what failed.
 import logging  # noqa: E402
 
 print()
-print_result(resultado, severity_level=logging.WARNING)
+print_result(results, severity_level=logging.WARNING)
