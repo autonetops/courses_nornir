@@ -1,9 +1,13 @@
 !
 ! ---- Config gerada pelo Nornir para {{ host.name }} ({{ host.hostname }}) ----
 !
-ip domain name {{ host['domain'] }}
+{# >>> TODO(1): the domain line — IOS dialect ("ip domain name ..."), value
+   from host['domain']. The finished EOS template (templates/eos/base.j2) is
+   your reference: same data, different dialect. #}
 !
 interface Loopback100
- description nornir :: site={{ host['site'] }} role={{ host['role'] }} regiao={{ host['region'] }}
- ip address {{ host['lab_loopback'] }} 255.255.255.255
+{# >>> TODO(2): the description line — same fields as the EOS template
+   (site/role/region via "nornir ::"), but IOS indents with ONE space. #}
+{# >>> TODO(3): the address line — IOS wants "ip address <ip> <netmask>" with
+   the full 255.255.255.255 mask instead of /32; the IP is host['lab_loopback']. #}
 !

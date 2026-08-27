@@ -1,5 +1,3 @@
-# Exercise (Aula 5) — complete the TODOs below.
-# Full solution: solutions/render_lab.py
 from nornir import InitNornir
 from nornir_jinja2.plugins.tasks import template_file
 
@@ -8,14 +6,10 @@ nr = InitNornir(config_file="config.yaml")
 # Each platform has its own template directory: templates/eos and templates/ios.
 # Rendering does NOT connect to anything — it is plain Python running locally.
 eos = nr.filter(platform="arista_eos")
-# >>> TODO(1): render base.j2 for the arista_eos slice with template_file
-#              (template= and path="templates/eos").
-r_eos = ...
+r_eos = eos.run(task=template_file, template="base.j2", path="templates/eos")
 
 ios = nr.filter(platform="cisco_ios")
-# >>> TODO(2): same for the cisco_ios slice, with the IOS template directory.
-#              (templates/ios/base.j2 has its own TODOs — finish it first.)
-r_ios = ...
+r_ios = ios.run(task=template_file, template="base.j2", path="templates/ios")
 
 print("========== pe-emea-01 (eos) ==========")
 print(r_eos["pe-emea-01"].result)

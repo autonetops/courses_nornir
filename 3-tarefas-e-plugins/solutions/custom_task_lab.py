@@ -1,5 +1,3 @@
-# Exercise (Aula 1) — complete the TODOs below.
-# Full solution: solutions/custom_task_lab.py
 import os
 
 from nornir import InitNornir
@@ -15,8 +13,6 @@ nr.inventory.defaults.password = os.environ["NORNIR_PASS"]
 # Arista PEs + Cisco core: the two platforms the uptime task knows about.
 # (SR Linux filters with "| grep", not "| include", and the FRR peer has no
 # SSH at all — both stay out of this task.)
-# >>> TODO(1): build the slice with F(platform__any=[...]) — the two platform
-#              names UPTIME_COMMAND knows about.
-target = ...
-
-# >>> TODO(2): run the `uptime` task on the slice and show it with print_result.
+target = nr.filter(F(platform__any=["arista_eos", "cisco_ios"]))
+results = target.run(task=uptime)
+print_result(results)

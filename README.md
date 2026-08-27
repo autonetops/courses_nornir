@@ -82,15 +82,16 @@ projeto evoluiu; a pasta é a forma prática de trabalhar com esse estado.
 
 - `1-Fundamentals/` — `config.yaml`, `inventory/` (hosts/groups/defaults) e `get_version.py`: primeiro contato, show version nos roteadores
 - `2-inventario/` — hierarquia de inventário, grupos compostos e `filter_lab.py`; `netbox_inventory.py` (Aula 4) e `infrahub_inventory.py` (Aula 5) — o inventário nascendo do NetBox e do Infrahub do curso (exporte `NB_URL`/`NB_TOKEN` e `INFRAHUB_ADDRESS`/`INFRAHUB_TOKEN`)
-- `3-tarefas-e-plugins/`:
+- `3-tarefas-e-plugins/` — capítulo em formato **exercício**: os scripts da raiz são esqueletos com `TODO`s numerados que você completa aula a aula; as versões fechadas vivem em `solutions/` (mesmos nomes — rode-as de dentro da pasta):
   - `tasks/facts.py` — task custom sobre netmiko (uptime por plataforma); `tasks/sonda.py` — sonda TCP (portas 22/179) para o host sem SSH
   - `custom_task_lab.py` — roda a task custom `uptime` nos PEs Arista + core Cisco (Aula 1)
   - `plugins_lab.py` — netmiko × napalm × scrapli lado a lado nos PEs; mesmo getter no core Cisco (Aula 2)
   - `sonda_lab.py` — o `peer-inet-01` (FRR sem SSH) sondado por socket TCP puro (Aula 2)
   - `processors.py` + `resultado_lab.py` — resultados, `failed_hosts` e processor de progresso (Aula 3, device-free)
   - `config_lab.py` — `napalm_configure` com dry-run, diff e idempotência na `Loopback100` (Aula 4)
-  - `templates/eos/base.j2`, `templates/ios/base.j2` — templates Jinja2 por plataforma (Aula 5)
+  - `templates/eos/base.j2` (pronto, o modelo) e `templates/ios/base.j2` (exercício: traduza o dialeto) — templates Jinja2 por plataforma (Aula 5)
   - `render_lab.py` — renderiza os templates (device-free); `deploy_from_template.py` — render → deploy (dry-run)
+  - `solutions/` — as soluções completas + `config.yaml` próprio apontando para `../inventory/`
 - `4-tecnicas-avancadas/`:
   - `config.yaml` — runner (threaded), SimpleInventory e a transform function `prepara_host`
   - `inventory/hosts.json` — export externo (CMDB simulado) com ip/platform/site/role por host
@@ -144,15 +145,20 @@ inventário sem tocar em nenhum dispositivo, rode `python netbox_inventory.py`
 ou `python infrahub_inventory.py` (com os tokens do curso exportados) — o
 inventário nascendo direto do NetBox e do Infrahub.
 
-Em `3-tarefas-e-plugins/`, os scripts colocam o inventário para **trabalhar**.
-Dois deles rodam **sem lab** (Python puro, ótimos para estudar):
-`python resultado_lab.py` (resultados, `failed_hosts` e o processor de
-progresso) e `python render_lab.py` (renderiza os templates Jinja2 por
-plataforma). O `sonda_lab.py` toca o lab mas nem credenciais precisa — é um
-socket TCP puro contra o `peer-inet-01`. Os demais (`custom_task_lab.py`,
-`plugins_lab.py`, `config_lab.py`, `deploy_from_template.py`) tocam os
-dispositivos — exporte as credenciais antes. O deploy é sempre em
-`dry_run=True`: revise o diff antes de trocar para `False`.
+Em `3-tarefas-e-plugins/`, os scripts colocam o inventário para **trabalhar**
+— e o capítulo vira **exercício**: cada script da raiz vem com a estrutura
+pronta (imports, `InitNornir`, credenciais, comentários) e `TODO`s numerados
+marcando o que cada aula pede que você escreva. Complete os `TODO`s, rode e
+compare com a versão fechada em `solutions/` (mesmos nomes; entre na pasta
+para rodar: `cd solutions`). Dois exercícios rodam **sem lab** (Python puro,
+ótimos para estudar): `python resultado_lab.py` (resultados, `failed_hosts` e
+o processor de progresso) e `python render_lab.py` (renderiza os templates
+Jinja2 por plataforma). O `sonda_lab.py` toca o lab mas nem credenciais
+precisa — é um socket TCP puro contra o `peer-inet-01`. Os demais
+(`custom_task_lab.py`, `plugins_lab.py`, `config_lab.py`,
+`deploy_from_template.py`) tocam os dispositivos — exporte as credenciais
+antes. O deploy é sempre em `dry_run=True`: revise o diff antes de trocar
+para `False`.
 
 ## Testes (Cap. 4)
 

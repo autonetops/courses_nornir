@@ -12,15 +12,15 @@ UPTIME_COMMAND = {
 def uptime(task: Task) -> Result:
     """Custom task on top of netmiko: collects the uptime line and returns just it.
 
-    Shows the anatomy of a task: it takes `task`, picks the command from the
-    host platform, runs a subtask (`netmiko_send_command`) through
-    `task.run`, processes the raw output and returns a clean `Result`.
+    Exercise (Aula 1) — complete the TODOs below.
+    Full solution: solutions/tasks/facts.py
     """
-    command = UPTIME_COMMAND[task.host.platform]
-    output = task.run(
-        task=netmiko_send_command,
-        command_string=command,
-        name=command,
-    )
-    line = output.result.strip()
-    return Result(host=task.host, result=line)
+    # >>> TODO(1): pick the command for THIS host — task.host.platform is the
+    #              key into UPTIME_COMMAND.
+    # >>> TODO(2): run netmiko_send_command as a SUBTASK via task.run(...),
+    #              passing the command as command_string= (and name=command,
+    #              so the output block is labeled with it).
+    # >>> TODO(3): the subtask's .result is the raw output — keep only the
+    #              uptime line (.strip() it).
+    # >>> TODO(4): return a Result(host=task.host, result=<the clean line>).
+    raise NotImplementedError("complete the TODOs (see solutions/tasks/facts.py)")

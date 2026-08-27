@@ -1,5 +1,3 @@
-# Exercise (Aula 4) — complete the TODOs below.
-# Full solution: solutions/config_lab.py
 import os
 
 from nornir import InitNornir
@@ -21,11 +19,11 @@ pes = nr.filter(platform="arista_eos")   # pe-emea-01 and pe-emea-02
 # and no rollback; passing dry_run=True here RAISES an error (unsupported).
 # Run it TWICE: changed=True both times — it does not compare, it just types.
 def config_domain(task: Task) -> Result:
-    # >>> TODO(1): send `ip domain name <domain>` through netmiko_send_config —
-    #              config_commands= takes a LIST, and the domain comes from the
-    #              inventory (task.host["domain"]). Label it
-    #              name="netmiko_send_config" and return what task.run gives you.
-    raise NotImplementedError("complete the TODOs (see solutions/config_lab.py)")
+    return task.run(
+        task=netmiko_send_config,
+        config_commands=[f"ip domain name {task.host['domain']}"],
+        name="netmiko_send_config",
+    )
 
 
 # --- Option B: napalm_configure — dry-run, diff and idempotency ---
@@ -40,12 +38,14 @@ def config_loopback(task: Task) -> Result:
             f"   ip address {task.host['lab_loopback']}/32",
         ]
     )
-    # >>> TODO(2): load `config` as a candidate through napalm_configure with
-    #              dry_run=True (label it name="napalm_configure (dry-run)")
-    #              and keep the MultiResult that task.run returns.
-    # >>> TODO(3): return a Result exposing the subtask's .diff as result= and
-    #              its .changed as changed= — that is what print_result shows.
-    raise NotImplementedError("complete the TODOs (see solutions/config_lab.py)")
+    r = task.run(
+        task=napalm_configure,
+        configuration=config,
+        dry_run=True,  # switch to False to actually COMMIT
+        name="napalm_configure (dry-run)",
+    )
+    # r.diff carries the diff; r.changed says whether there was anything to change.
+    return Result(host=task.host, result=r.diff, changed=r.changed)
 
 
 r_domain = core.run(task=config_domain)

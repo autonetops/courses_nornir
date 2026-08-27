@@ -1,5 +1,3 @@
-# Exercise (Aula 2) — complete the TODOs below.
-# Full solution: solutions/sonda_lab.py
 from nornir import InitNornir
 from nornir.core.filter import F
 from nornir_utils.plugins.functions import print_result
@@ -10,8 +8,6 @@ nr = InitNornir(config_file="config.yaml")
 
 # Only peer-inet-01 — the single host in the inventory without SSH.
 # Note: the probe does not even need credentials — it is a plain TCP socket.
-# >>> TODO(1): slice the inventory down to the hosts carrying the `no_ssh`
-#              data flag (an F() filter on inherited data — chapter 2).
-no_ssh_hosts = ...
-
-# >>> TODO(2): run probe_ports on that slice and show it with print_result.
+no_ssh_hosts = nr.filter(F(no_ssh=True))
+results = no_ssh_hosts.run(task=probe_ports)
+print_result(results)

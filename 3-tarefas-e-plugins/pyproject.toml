@@ -1,5 +1,9 @@
 # nornir-lab/pyproject.toml — Capitulo 3: Execucao de Tarefas e Plugins
 #
+# Os scripts na raiz sao ESQUELETOS de exercicio: a estrutura ja vem pronta e
+# TODOs numerados marcam o que voce completa em cada aula. As versoes fechadas
+# vivem em solutions/ (rode-as de DENTRO da pasta: cd solutions).
+#
 #     cd 3-tarefas-e-plugins
 #     uv sync
 #     export NORNIR_USER="admin" NORNIR_PASS="admin"

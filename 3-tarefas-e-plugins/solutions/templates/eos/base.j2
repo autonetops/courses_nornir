@@ -1,0 +1,9 @@
+!
+! ---- Config gerada pelo Nornir para {{ host.name }} ({{ host.hostname }}) ----
+!
+dns domain {{ host['domain'] }}
+!
+interface Loopback100
+   description nornir :: site={{ host['site'] }} role={{ host['role'] }} regiao={{ host['region'] }}
+   ip address {{ host['lab_loopback'] }}/32
+!

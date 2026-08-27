@@ -9,25 +9,14 @@ class Progress(Processor):
     A processor gets callbacks at the key moments of the execution. Here we
     accumulate the per-host status in `task_instance_completed` (which fires
     when EACH host finishes) and print an ordered summary at the end.
-
-    Exercise (Aula 3) — complete the TODOs below.
-    Full solution: solutions/processors.py
-    Expected report:
-
-        === check_ssh: running on 6 host(s) ===
-        [OK  ] ce-custc-01
-        ...
-        [FAIL] peer-inet-01
-        === 1 failure(s) ===
     """
 
     def __init__(self) -> None:
         self.status: dict[str, bool] = {}
 
     def task_started(self, task: Task) -> None:
-        # >>> TODO(1): announce the run — task.name plus how many hosts live
-        #              in task.nornir.inventory.hosts.
-        pass
+        total = len(task.nornir.inventory.hosts)
+        print(f"=== {task.name}: running on {total} host(s) ===")
 
     def task_instance_started(self, task: Task, host: Host) -> None:
         pass
@@ -35,16 +24,13 @@ class Progress(Processor):
     def task_instance_completed(
         self, task: Task, host: Host, result: MultiResult
     ) -> None:
-        # >>> TODO(2): record in self.status whether THIS host succeeded
-        #              (careful: result.failed says "failed", you store "ok").
-        #              Do NOT print here — hosts finish in thread order.
-        pass
+        self.status[host.name] = not result.failed
 
     def task_completed(self, task: Task, result: AggregatedResult) -> None:
-        # >>> TODO(3): print one "[OK  ] host" / "[FAIL] host" line per host,
-        #              sorted by name, then a final line with the count of
-        #              result.failed_hosts.
-        pass
+        for name in sorted(self.status):
+            mark = "OK  " if self.status[name] else "FAIL"
+            print(f"[{mark}] {name}")
+        print(f"=== {len(result.failed_hosts)} failure(s) ===")
 
     def subtask_instance_started(self, task: Task, host: Host) -> None:
         pass

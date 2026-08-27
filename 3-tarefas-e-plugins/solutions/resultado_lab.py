@@ -1,7 +1,3 @@
-# Exercise (Aula 3) — complete the TODOs below.
-# Full solution: solutions/resultado_lab.py
-import logging
-
 from nornir import InitNornir
 from nornir.core.task import Result, Task
 from nornir_utils.plugins.functions import print_result
@@ -14,7 +10,6 @@ def check_ssh(task: Task) -> Result:
 
     peer-inet-01 is `no_ssh: true`, so it 'fails' on SSH — perfect to study
     failing hosts, `failed_hosts` and processors without depending on the lab.
-    This task is given: the exercise is READING what it returns.
     """
     if task.host.get("no_ssh", False):
         raise ConnectionError("device without SSH — managed through local vtysh")
@@ -25,19 +20,18 @@ nr = InitNornir(config_file="config.yaml")
 
 # 1) Raw execution: by default, one failure does NOT stop the others.
 results = nr.run(task=check_ssh)
-# >>> TODO(1): print three answers about this run:
-#              - did ANYTHING fail? (one boolean attribute on `results`)
-#              - WHO failed? (sorted names of the failed-hosts collection)
-#              - the exception object stored for peer-inet-01 — repr() of the
-#                first Result in that host's MultiResult.
+print("failed?      ", results.failed)
+print("failed_hosts ", sorted(results.failed_hosts))
+print("peer exception", repr(results["peer-inet-01"][0].exception))
 print()
 
 # 2) Same work, with a processor for a clean report.
 #    A fresh nr: otherwise peer-inet-01 (already marked failed) would be SKIPPED.
-# >>> TODO(2): build a SECOND InitNornir and run check_ssh through the
-#              Progress processor: nr2.with_processors([...]).run(...).
+nr2 = InitNornir(config_file="config.yaml")
+nr2.with_processors([Progress()]).run(task=check_ssh)
 
 # 3) print_result with a severity filter: only what failed.
-# >>> TODO(3): print_result(results, ...) with a severity floor that hides
-#              the successes (hint: logging.WARNING).
+import logging  # noqa: E402
+
 print()
+print_result(results, severity_level=logging.WARNING)

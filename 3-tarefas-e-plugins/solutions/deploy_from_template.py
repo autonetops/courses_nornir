@@ -1,5 +1,3 @@
-# Exercise (Aula 5) — complete the TODOs below.
-# Full solution: solutions/deploy_from_template.py
 import os
 
 from nornir import InitNornir
@@ -20,17 +18,16 @@ def render_and_deploy(task: Task, path: str) -> Result:
     Step 2 (device): napalm_configure loads it, computes the diff and rolls back.
     Switch dry_run to False to commit.
     """
-    # >>> TODO(1): subtask 1 (local) — template_file with template="base.j2"
-    #              and the `path` this task received; label it name="render"
-    #              and keep what task.run returns.
-    # >>> TODO(2): subtask 2 (device) — napalm_configure taking the RENDERED
-    #              text (the .result of step 1) as configuration=, with
-    #              dry_run=True; label it name="deploy (dry-run)".
-    # >>> TODO(3): return a simple Result (result="ok") — the interesting
-    #              output already lives in the two subtasks.
-    raise NotImplementedError(
-        "complete the TODOs (see solutions/deploy_from_template.py)"
+    render = task.run(
+        task=template_file, template="base.j2", path=path, name="render"
     )
+    task.run(
+        task=napalm_configure,
+        configuration=render.result,
+        dry_run=True,
+        name="deploy (dry-run)",
+    )
+    return Result(host=task.host, result="ok")
 
 
 # One pass per platform: each one uses its own template directory.

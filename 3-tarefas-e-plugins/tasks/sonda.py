@@ -12,12 +12,15 @@ def probe_ports(task: Task, timeout: float = 3.0) -> Result:
     vtysh only answers inside the container. But a task is just Python: a
     TCP socket answers what actually matters — is the BGP service
     (port 179) up?
+
+    Exercise (Aula 2) — complete the TODOs below.
+    Full solution: solutions/tasks/sonda.py
     """
     state = {}
-    for name, port in PORTS.items():
-        try:
-            with socket.create_connection((task.host.hostname, port), timeout):
-                state[f"{name} ({port})"] = "open"
-        except OSError:
-            state[f"{name} ({port})"] = "closed"
-    return Result(host=task.host, result=state)
+    # >>> TODO(1): for each (name, port) in PORTS.items(), try
+    #              socket.create_connection((task.host.hostname, port), timeout)
+    #              in a `with` block — it returns a socket when the port
+    #              answers and raises OSError when it does not.
+    # >>> TODO(2): record state[f"{name} ({port})"] = "open" or "closed".
+    # >>> TODO(3): return a Result carrying the state dict.
+    raise NotImplementedError("complete the TODOs (see solutions/tasks/sonda.py)")
